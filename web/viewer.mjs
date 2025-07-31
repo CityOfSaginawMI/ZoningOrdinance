@@ -15951,6 +15951,22 @@ const PDFViewerApplication = {
     this.pdfLinkService.setDocument(pdfDocument);
     this.pdfDocumentProperties?.setDocument(pdfDocument);
     const pdfViewer = this.pdfViewer;
+    // Responsive logic on load
+const isMobile = window.innerWidth <= 768;
+
+// Set spread mode: 0 = none, 1 = odd/even spread
+const initialSpreadMode = isMobile ? 0 : 1;
+pdfViewer.spreadMode = initialSpreadMode;
+
+// Set scroll mode: 0 = vertical, 1 = wrapped
+const initialScrollMode = 1;
+pdfViewer.scrollMode = initialScrollMode;
+
+// Set zoom: "page-fit", "page-width", or a number
+const initialZoom = isMobile ? "page-width" : "page-fit";
+pdfViewer.currentScaleValue = initialZoom;
+
+// Load the document
     pdfViewer.setDocument(pdfDocument);
     const {
       firstPagePromise,
