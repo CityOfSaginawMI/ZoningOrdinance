@@ -33,6 +33,17 @@ See https://github.com/adobe-type-tools/cmap-resources
 <script>
   window.defaultPDF = "../SaginawZoningOrdinance.pdf";
 </script>
+      <script>
+  // Detect if screen is portrait
+  const isPortrait = window.innerHeight > window.innerWidth;
+
+  // Wait for PDF.js to be ready
+  document.addEventListener("webviewerloaded", () => {
+    PDFViewerApplicationOptions.set('defaultZoomValue', 'page-width');
+    PDFViewerApplication.spreadModeOnLoad = isPortrait ? 0 : 2; // 0 = none, 2 = both
+  });
+</script>
+
 
     <link rel="stylesheet" href="viewer.css">
 
