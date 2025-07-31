@@ -48,6 +48,28 @@ See https://github.com/adobe-type-tools/cmap-resources
     <link rel="stylesheet" href="viewer.css">
 
   <script src="viewer.mjs" type="module"></script>
+      <script>
+  document.addEventListener("webviewerloaded", () => {
+    // Wait until pages are fully loaded
+    document.addEventListener("pagesloaded", () => {
+      const isPortrait = window.innerHeight > window.innerWidth;
+      
+      // 0 = none (single page), 2 = both (2-page spread)
+      const spreadMode = isPortrait ? 0 : 2;
+
+      // 0 = vertical scroll (default)
+      const scrollMode = 0;
+
+      // Apply modes
+      PDFViewerApplication.pdfViewer.spreadMode = spreadMode;
+      PDFViewerApplication.pdfViewer.scrollMode = scrollMode;
+
+      // Force layout update
+      PDFViewerApplication.pdfViewer._setScaleUpdatePages('page-width');
+    });
+  });
+</script>
+
   </head>
 
   <body tabindex="0">
