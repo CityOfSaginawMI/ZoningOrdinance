@@ -33,42 +33,29 @@ See https://github.com/adobe-type-tools/cmap-resources
 <script>
   window.defaultPDF = "../SaginawZoningOrdinance.pdf";
 </script>
-      <script>
-  // Detect if screen is portrait
-  const isPortrait = window.innerHeight > window.innerWidth;
-
-  // Wait for PDF.js to be ready
-  document.addEventListener("webviewerloaded", () => {
-    PDFViewerApplicationOptions.set('defaultZoomValue', 'page-width');
-    PDFViewerApplication.spreadModeOnLoad = isPortrait ? 0 : 2; // 0 = none, 2 = both
-  });
-</script>
 
 
     <link rel="stylesheet" href="viewer.css">
 
   <script src="viewer.mjs" type="module"></script>
       <script>
-  document.addEventListener("webviewerloaded", () => {
-    // Wait until pages are fully loaded
-    document.addEventListener("pagesloaded", () => {
-      const isPortrait = window.innerHeight > window.innerWidth;
-      
-      // 0 = none (single page), 2 = both (2-page spread)
-      const spreadMode = isPortrait ? 0 : 2;
+  document.addEventListener('webviewerloaded', function () {
+    const isPortrait = window.matchMedia("(orientation: portrait)").matches;
 
-      // 0 = vertical scroll (default)
-      const scrollMode = 0;
+    const applyLayout = () => {
+      const viewer = window.PDFViewerApplication;
+      if (!viewer || !viewer.pdfViewer) return;
 
-      // Apply modes
-      PDFViewerApplication.pdfViewer.spreadMode = spreadMode;
-      PDFViewerApplication.pdfViewer.scrollMode = scrollMode;
+      viewer.pdfViewer.spreadMode = isPortrait ? 0 : 2; // 0 = single page, 2 = 2-up
+      viewer.pdfViewer.scrollMode = 0; // vertical
+      viewer.pdfViewer._setScaleUpdatePages("page-width");
+    };
 
-      // Force layout update
-      PDFViewerApplication.pdfViewer._setScaleUpdatePages('page-width');
-    });
+    // Wait for viewer to fully load
+    document.addEventListener("pagesinit", applyLayout);
   });
 </script>
+
 
   </head>
 
