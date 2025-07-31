@@ -22,12 +22,6 @@ See https://github.com/adobe-type-tools/cmap-resources
 -->
 <html dir="ltr" mozdisallowselectionprint>
   <head>
-<script>
-  window.defaultPDF = "SaginawZoningOrdinance.pdf";
-  const match = window.location.search.match(/[?&]file=([^&#]+)/);
-  if (match) window.defaultPDF = decodeURIComponent(match[1]);
-</script>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="google" content="notranslate">
@@ -36,6 +30,9 @@ See https://github.com/adobe-type-tools/cmap-resources
 <!-- This snippet is used in production (included from viewer.html) -->
 <link rel="resource" type="application/l10n" href="locale/locale.json">
 <script src="../build/pdf.mjs" type="module"></script>
+<script>
+  window.defaultPDF = "../SaginawZoningOrdinance.pdf";
+</script>
 
     <link rel="stylesheet" href="viewer.css">
 
