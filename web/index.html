@@ -38,23 +38,6 @@ See https://github.com/adobe-type-tools/cmap-resources
     <link rel="stylesheet" href="viewer.css">
 
   <script src="viewer.mjs" type="module"></script>
-      <script>
-  document.addEventListener('webviewerloaded', function () {
-    const isPortrait = window.matchMedia("(orientation: portrait)").matches;
-
-    const applyLayout = () => {
-      const viewer = window.PDFViewerApplication;
-      if (!viewer || !viewer.pdfViewer) return;
-
-      viewer.pdfViewer.spreadMode = isPortrait ? 0 : 2; // 0 = single page, 2 = 2-up
-      viewer.pdfViewer.scrollMode = 0; // vertical
-      viewer.pdfViewer._setScaleUpdatePages("page-width");
-    };
-
-    // Wait for viewer to fully load
-    document.addEventListener("pagesinit", applyLayout);
-  });
-</script>
 
 
   </head>
